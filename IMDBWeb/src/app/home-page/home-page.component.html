@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row row-cols-md-3">
+
+        <div class="col mb-4" *ngFor="let movie of moviesShows">
+            <div class="card">
+
+
+                <div class="movies-box">
+                    <!--img------------>
+                    <div class="movies-img">
+                        <div class="quality">{{movie.releaseDate}}</div>
+                        <img src="{{movie.coverImage}}" class="card-img-top" alt="...">
+                    </div>
+                    <!--text--------->
+                    <a href="#">
+                        {{movie.title}}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
