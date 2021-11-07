@@ -34,7 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     RatingModule,
     InfiniteScrollModule,
-    ToastModule
+    ToastModule,
 
   ],
   providers: [HttpClientService, MoviesShowsServiceService, RatingService, MessageService, { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],

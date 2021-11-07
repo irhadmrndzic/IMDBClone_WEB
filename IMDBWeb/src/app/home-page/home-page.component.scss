@@ -46,7 +46,7 @@
     right: 0;
     min-height: 100%;
 }
-.movies-box a{
+.movies-box span{
     text-align:center;
     display: block;
     font-weight: 600;
@@ -57,6 +57,7 @@
     text-overflow: ellipsis;
     color: #3a3a3a;
     margin: 20px;
+    font-size: large;
 }
 .movies-box:hover{
     transform: translateY(-10px);
@@ -88,12 +89,23 @@
 
 .description{
     display: flex;
-    flex-flow: column nowrap; /*change this*/
+    flex-flow: column nowrap; 
     margin:10px;
     text-align: justify;
     align-items: center;
     justify-content: center;
     font-weight: 500;
+    overflow: hidden;
+}
+
+.cast{
+    display: flex;
+    flex-flow: column nowrap; 
+    margin:10px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
     overflow: hidden;
 }
 

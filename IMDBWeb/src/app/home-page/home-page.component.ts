@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MoviesShowsServiceService } from '../services/movies-shows-service.service';
 import { RatingService } from '../services/rating.service';
 import { MessageService } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -15,17 +16,29 @@ export class HomePageComponent implements OnInit {
   totalCount: any;
   hasNext: any;
   loading: boolean;
-  constructor(public moviesService: MoviesShowsServiceService, public ratingService: RatingService, private messageService: MessageService) {
-    this.loadData();
+  searchTerm: any;
+  type: any;
+  constructor(public moviesService: MoviesShowsServiceService, public ratingService: RatingService, private messageService: MessageService, public route: ActivatedRoute) {
   }
   ngOnInit() {
+    this.type = this.route.snapshot.data["type"];
+    console.log("tip", this.type);
+
+    this.route.queryParams.subscribe(params => {
+      console.log("parametri", params);
+
+      this.searchTerm = params.Search;
+      this.loadData(this.searchTerm, this.type);
+    });
+
 
   }
 
-  public loadData() {
+  public loadData(searchTerm?: string, type?: any) {
     this.loading = true;
-
-    this.moviesService.getMovies(this.pageNumber, this.pageSize).subscribe(res => {
+    this.pageNumber = 1;
+    console.log("loaddataty", type)
+    this.moviesService.getMovies(this.pageNumber, this.pageSize, searchTerm, type).subscribe(res => {
       var obj = JSON.parse(res.headers.get("x-pagination"));
       this.totalCount = obj.TotalCount;
       this.hasNext = obj.HasNext;
@@ -43,7 +56,8 @@ export class HomePageComponent implements OnInit {
     if (this.hasNext) {
       this.loading = true;
       this.pageNumber++;
-      this.moviesService.getMovies(this.pageNumber, this.pageSize).subscribe(res => {
+
+      this.moviesService.getMovies(this.pageNumber, this.pageSize, this.searchTerm, this.type).subscribe(res => {
         if (res) {
           var obj = JSON.parse(res.headers.get("x-pagination"));
           this.totalCount = obj.TotalCount;

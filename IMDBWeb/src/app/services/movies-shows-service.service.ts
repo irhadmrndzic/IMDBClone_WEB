@@ -14,10 +14,17 @@ export class MoviesShowsServiceService {
   constructor(public httpService: HttpClientService) { }
 
 
-  getMovies(pageNumber, pageSize) {
-    return this.httpService.get(`${this.moviesApiUrl}` + "?PageNumber=" + pageNumber + "&PageSize=" + pageSize)
+  getMovies(pageNumber, pageSize, searchTerm?, type?) {
+    let params = `?PageNumber=${pageNumber}&PageSize=${pageSize}`
+
+    if (searchTerm) {
+      params = `${params}&Search=${searchTerm}`;
+    }
+
+    params = `${params}&Type=${type}`;
+
+    return this.httpService.get(`${this.moviesApiUrl}` + params)
       .pipe(map((resp) => {
-        console.log("r", resp.body);
 
         resp.body.forEach(item => {
           item.coverImage = "data:image/png;base64," + item.coverImage;

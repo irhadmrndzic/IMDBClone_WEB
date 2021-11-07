@@ -12,16 +12,18 @@
                             <div class="year">{{movie.releaseDate}}</div>
                             <img src="{{movie.coverImage}}" class="card-img-top" alt="...">
                         </div>
-                        <a href="#">
+                        <span>
                             {{movie.title}}
-                            <p-rating [(ngModel)]="movie.avgRating" stars="10"
+                            <p-rating [(ngModel)]="movie.avgRating" stars="5"
                                 (onRate)="rateMovie(movie.movieId,movie.avgRating)">
                             </p-rating>
-                        </a>
+                        </span>
                         <div class="description">
                             {{movie.description}}
                         </div>
-
+                        <div class="cast">
+                            {{movie.actors}}
+                        </div>
                     </div>
                 </div>
             </div>
