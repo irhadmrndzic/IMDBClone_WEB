@@ -5,7 +5,6 @@ import { HomePageComponent } from './home-page/home-page.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent, data: { type: "" } },
   { path: 'movies', component: HomePageComponent, data: { type: 0 } },
   { path: 'shows', component: HomePageComponent, data: { type: 1 } }
@@ -14,7 +13,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

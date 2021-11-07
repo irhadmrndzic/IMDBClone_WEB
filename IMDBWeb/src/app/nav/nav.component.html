@@ -3,27 +3,22 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center ">
         <ul class="nav ">
             <li class="nav-item">
-                <a class="nav-link  navbar-brand" routerLink="/home">All</a>
+                <a class="nav-link  navbar-brand" routerLink="/home" routerLinkActive="active"
+                    (click)="clearSearch()">All</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link navbar-brand" routerLink="/movies">Movies</a>
+                <a class="nav-link navbar-brand" routerLink="/movies" routerLinkActive="active"
+                    (click)="clearSearch()">Movies</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link navbar-brand" routerLink="/shows">Shows</a>
+                <a class="nav-link navbar-brand" routerLink="/shows" routerLinkActive="active"
+                    (click)="clearSearch()">Shows</a>
             </li>
-
         </ul>
-
 
         <div class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search anything ..." aria-label="Search"
                 [formControl]="queryField">
         </div>
-
-
-
     </nav>
-
-
-
 </header>

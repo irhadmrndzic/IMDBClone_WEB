@@ -21,12 +21,9 @@ export class HomePageComponent implements OnInit {
   constructor(public moviesService: MoviesShowsServiceService, public ratingService: RatingService, private messageService: MessageService, public route: ActivatedRoute) {
   }
   ngOnInit() {
+
     this.type = this.route.snapshot.data["type"];
-    console.log("tip", this.type);
-
     this.route.queryParams.subscribe(params => {
-      console.log("parametri", params);
-
       this.searchTerm = params.Search;
       this.loadData(this.searchTerm, this.type);
     });
@@ -37,7 +34,6 @@ export class HomePageComponent implements OnInit {
   public loadData(searchTerm?: string, type?: any) {
     this.loading = true;
     this.pageNumber = 1;
-    console.log("loaddataty", type)
     this.moviesService.getMovies(this.pageNumber, this.pageSize, searchTerm, type).subscribe(res => {
       var obj = JSON.parse(res.headers.get("x-pagination"));
       this.totalCount = obj.TotalCount;
@@ -92,10 +88,7 @@ export class HomePageComponent implements OnInit {
         this.toastService("success", "Success", "Movie rated.");
       }
     }, err => {
-      console.log(err);
-
       this.toastService("error", "Error", "Error on rating movie. ");
-
     });
   }
 }

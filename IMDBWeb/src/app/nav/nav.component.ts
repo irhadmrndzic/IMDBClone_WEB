@@ -14,30 +14,42 @@ export class NavComponent implements OnInit {
   constructor(public formBuilder: FormBuilder, public router: Router) { }
 
   ngOnInit() {
-    this.createForm();
     this.queryField.valueChanges.pipe(
       debounceTime(800),
       distinctUntilChanged(),
     )
       .subscribe((queryField) => {
         if (queryField.length > 2) {
-          this.router.navigateByUrl(`/home?Search=${queryField}`);
+
+          if (this.router.url == "/movies") {
+            this.router.navigateByUrl(`/movies?Search=${queryField}&Type="${0}"`);
+          }
+          else if (this.router.url == "/shows") {
+            this.router.navigateByUrl(`/shows?Search=${queryField}&Type="${1}"`);
+          } else {
+            this.router.navigateByUrl(`/home?Search=${queryField}`);
+          }
         }
         if (queryField.length == 0) {
-          this.router.navigateByUrl("/home");
+          var url = this.router.url.toString();
+
+          if (url.includes("/movies")) {
+
+            this.router.navigateByUrl("/movies");
+          }
+          if (url.includes("/shows")) {
+
+            this.router.navigateByUrl("/shows");
+          } else if (url.includes("/home")) {
+            this.router.navigateByUrl("/home");
+          }
         }
       });
-
-
   }
 
-  public createForm() {
-    this.searchForm = this.formBuilder.group({
-      searchTerm: ['']
-    });
+  clearSearch() {
+    this.queryField.setValue("");
   }
 
-  public search() {
 
-  }
 }
