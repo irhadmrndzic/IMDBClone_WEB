@@ -8,20 +8,24 @@ import { HttpClientService } from './http-client.service';
   providedIn: 'root'
 })
 export class MoviesShowsServiceService {
-
-  private moviesApiUrl = environment.apiUrl + "Movies";
+  apiUrl: string = "https://localhost:44368/api/"
+  private moviesApiUrl = this.apiUrl + "Movies";
 
   constructor(public httpService: HttpClientService) { }
 
 
-  getMovies() {
-    return this.httpService.get(`${this.moviesApiUrl}`)
+  getMovies(pageNumber, pageSize) {
+    return this.httpService.get(`${this.moviesApiUrl}` + "?PageNumber=" + pageNumber + "&PageSize=" + pageSize)
       .pipe(map((resp) => {
-        resp.forEach(item => {
+        console.log("r", resp.body);
+
+        resp.body.forEach(item => {
           item.coverImage = "data:image/png;base64," + item.coverImage;
           item.releaseDate = (new Date(item.releaseDate)).getFullYear();
         });
         return resp;
       }));
   }
+
+
 }

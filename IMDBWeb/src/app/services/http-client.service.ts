@@ -10,16 +10,20 @@ export class HttpClientService {
 
   constructor(public http: HttpClient) { }
 
+
   public get(url: string, options?): Observable<any> {
+
     let subj = new Subject<any>();
 
-    this.http.get(url, options).pipe(take(1)).subscribe((res) => {
-      subj.next(res);
-      subj.complete();
-    },
-      (err: HttpErrorResponse) => {
-        this.getRetry(err, subj, url, options);
-      });
+    this.http
+      .get(url, { observe: 'response' }).pipe(take(1)).subscribe((res) => {
+
+        subj.next(res);
+        subj.complete();
+      },
+        (err: HttpErrorResponse) => {
+          this.getRetry(err, subj, url, options);
+        });
 
     return subj.asObservable();
   }
